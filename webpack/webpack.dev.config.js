@@ -10,7 +10,9 @@ const PATHS = {
 
 export default {
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client',
+    PATHS.app,
   ],
   module: {
     loaders: [

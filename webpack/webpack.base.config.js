@@ -8,9 +8,6 @@ const PATHS = {
 };
 
 export default {
-  entry: [
-    PATHS.app,
-  ],
   output: {
     path: PATHS.dist,
     filename: 'bundle.js',

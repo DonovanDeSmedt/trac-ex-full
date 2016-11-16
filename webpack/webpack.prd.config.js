@@ -10,6 +10,9 @@ const PATHS = {
 };
 
 export default {
+  entry: [
+    PATHS.app,
+  ],
   module: {
     loaders: [
       {
