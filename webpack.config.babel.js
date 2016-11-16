@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
-import baseConfig from './config/webpack.base.config';
-import devConfig from './config/webpack.dev.config';
-import prdConfig from './config/webpack.prd.config';
+import baseConfig from './webpack/webpack.base.config';
+import devConfig from './webpack/webpack.dev.config';
+import prdConfig from './webpack/webpack.prd.config';
 
 const TARGET = process.env.npm_lifecycle_event;
 
