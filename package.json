@@ -11,7 +11,10 @@
     "lint:js": "eslint app --ext .js --ext .jsx",
     "lint:js:fix": "eslint app --ext .js --ext .jsx --fix",
     "lint:css": "./node_modules/stylelint/dist/cli.js app/containers/**/*.css app/components/**/*.css",
-    "lint": "npm run lint:js && npm run lint:css"
+    "lint": "npm run lint:js && npm run lint:css",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "jest --coverage"
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
@@ -19,6 +22,7 @@
     "babel-cli": "6.16.0",
     "babel-core": "6.17.0",
     "babel-eslint": "6.1.2",
+    "babel-jest": "^17.0.2",
     "babel-loader": "6.2.5",
     "babel-plugin-lodash": "3.2.9",
     "babel-plugin-transform-object-rest-spread": "6.16.0",
@@ -35,6 +39,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.22.0",
+    "jest": "^17.0.3",
     "lodash-webpack-plugin": "0.10.2",
     "morgan": "1.7.0",
     "normalize.css": "4.2.0",
@@ -62,5 +67,12 @@
     "redux-actions": "^0.13.0",
     "redux-thunk": "2.1.0",
     "reselect": "2.5.4"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "app/containers/**/*-actions.js",
+      "app/containers/**/*-reducers.js",
+      "app/containers/**/*-selectors.js"
+    ]
   }
 }
