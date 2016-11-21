@@ -11,13 +11,13 @@ export default function configureStore(rootReducer) {
     createStoreWithMiddleware = compose(
       applyMiddleware(
         thunk,
-        logger
+        logger,
       ),
-      window.devToolsExtension ? window.devToolsExtension() : null
+      window.devToolsExtension ? window.devToolsExtension() : null,
     )(createStore);
   } else {
     createStoreWithMiddleware = compose(
-     applyMiddleware(thunk)
+      applyMiddleware(thunk),
    )(createStore);
   }
 

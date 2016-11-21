@@ -13,7 +13,7 @@ const renderApp = (RootCmp) => {
     <AppContainer>
       <RootCmp store={store} />
     </AppContainer>
-    , document.getElementById('root')
+    , document.getElementById('root'),
   );
 };
 

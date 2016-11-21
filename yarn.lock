@@ -1695,6 +1695,10 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+eslint-config-dlw@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-dlw/-/eslint-config-dlw-1.0.1.tgz#bd056ce7a0c9f74d875eaa9783fd36394acd3139"
+
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"

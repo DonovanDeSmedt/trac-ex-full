@@ -5,8 +5,8 @@ import HomeContainer from './containers/home/home-container';
 import ContactContainer from './containers/contact/contact-container';
 
 export default (
-  <Route path="/" component={AppWrapper}>
+  <Route path='/' component={AppWrapper}>
     <IndexRoute component={HomeContainer} />
-    <Route path="contact" component={ContactContainer} />
+    <Route path='contact' component={ContactContainer} />
   </Route>
 );

@@ -1,20 +1,12 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["airbnb-base", "plugin:react/recommended"],
+  "extends": [
+    "dlw",
+    "dlw/rules/react"
+  ],
   "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
     "jest": true
   },
-  "plugins": [
-    "react", "import",
-  ],
   "globals": {
-    "__DEV__": true,
-  },
-  "rules": {
-    "quote-props": [2, "consistent-as-needed"],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true }]
+    "__DEV__": true
   }
 }

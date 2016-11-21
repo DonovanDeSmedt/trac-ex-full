@@ -3,7 +3,7 @@ import Home from '../../components/home/home';
 import { getItems, toggleItem } from './home-actions';
 import { getAllItems } from './home-selectors';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   items: getAllItems(state),
 });
 
