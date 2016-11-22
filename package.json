@@ -10,11 +10,12 @@
     "start:dist": "./node_modules/.bin/babel-node server --production",
     "lint:js": "eslint app --ext .js --ext .jsx",
     "lint:js:fix": "eslint app --ext .js --ext .jsx --fix",
-    "lint:css": "./node_modules/stylelint/dist/cli.js app/containers/**/*.css app/components/**/*.css",
+    "lint:css": "./node_modules/stylelint/dist/cli.js app/**/*.css",
     "lint": "npm run lint:js && npm run lint:css",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "jest --coverage"
+    "test:cov": "npm test -- --coverage",
+    "precommit": "npm run lint"
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
@@ -38,6 +39,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
+    "husky": "^0.11.9",
     "jest": "^17.0.3",
     "lodash-webpack-plugin": "^0.10.6",
     "morgan": "^1.7.0",
@@ -69,9 +71,9 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "app/containers/**/*-actions.js",
-      "app/containers/**/*-reducers.js",
-      "app/containers/**/*-selectors.js"
+      "app/**/*-actions.js",
+      "app/**/*-reducers.js",
+      "app/**/*-selectors.js"
     ]
   }
 }
