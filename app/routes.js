@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import AppWrapper from './components/app-wrapper';
-import HomeContainer from './containers/home/home-container';
-import ContactContainer from './containers/contact/contact-container';
+import HomeContainer from './modules/home/containers/home-container';
+import ContactContainer from './modules/contact/containers/contact-container';
 
 export default (
   <Route path='/' component={AppWrapper}>
