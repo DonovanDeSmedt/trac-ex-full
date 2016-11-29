@@ -8,12 +8,13 @@ export default function configureStore(rootReducer) {
   let createStoreWithMiddleware;
 
   if (__DEV__) {
-    createStoreWithMiddleware = compose(
+    // eslint-disable-next-line no-underscore-dangle
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    createStoreWithMiddleware = composeEnhancers(
       applyMiddleware(
         thunk,
         logger,
       ),
-      window.devToolsExtension ? window.devToolsExtension() : null,
     )(createStore);
   } else {
     createStoreWithMiddleware = compose(
