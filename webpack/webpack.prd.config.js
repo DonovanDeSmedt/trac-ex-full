@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 const PATHS = {
   app: path.join(__dirname, '..', 'app'),
@@ -54,5 +55,12 @@ export default {
       },
     }),
     new ExtractTextPlugin('styles.css'),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
   ],
 };

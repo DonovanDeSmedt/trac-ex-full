@@ -7,6 +7,7 @@ import proxy from 'proxy-middleware';
 import url from 'url';
 import morgan from 'morgan';
 import yargs from 'yargs';
+import compress from 'compression';
 import config from './webpack.config.babel';
 
 const argv = yargs.argv;
@@ -44,6 +45,7 @@ if (!production) {
   });
 } else {
   logger.info('serving production');
+  app.use(compress()); // gzip
   app.use(express.static(PATHS.dist));
   app.use('/api', proxy(url.parse(`${backendUrl}/$api`)));
   app.get(/^((?!\/api).)*$/, (req, res) => {
