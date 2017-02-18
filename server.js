@@ -9,24 +9,26 @@ import morgan from 'morgan';
 import yargs from 'yargs';
 import compress from 'compression';
 import favicon from 'serve-favicon';
-import config from './webpack.config.babel';
+import webpackConfig from './webpack.config.babel';
 
-const argv = yargs.argv;
-const logger = console;
-const backendUrl = '';
-const production = !!argv.production;
-const port = 3010;
-const host = 'localhost';
-const app = express();
+const config = {
+  host: 'localhost',
+  port: 3010,
+  proxyUrl: '',
+};
 const PATHS = {
   dist: path.join(__dirname, 'dist'),
-  public: path.join(__dirname, 'public'),
+  indexHtml: path.join(__dirname, 'dist', 'index.html'),
+  publicFavicon: path.join(__dirname, 'public', 'favicon.ico'),
 };
 
-if (!production) {
-  const compiler = webpack(config);
+const logger = console;
+const app = express();
+
+if (!yargs.argv.production) {
+  const compiler = webpack(webpackConfig);
   const middleware = webpackMiddleware(compiler, {
-    publicPath: config.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
     contentBase: 'app',
     stats: {
       colors: true,
@@ -36,28 +38,29 @@ if (!production) {
   });
 
   app.use(morgan('dev'));
-  app.use(favicon(`${PATHS.public}/favicon.ico`));
+  app.use(favicon(PATHS.publicFavicon));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.use('/api', proxy(url.parse(`${backendUrl}/$api`)));
+  app.use('/api', proxy(url.parse(`${config.proxyUrl}/$api`)));
 
   app.get(/^((?!\/api).)*$/, (req, res) => {
-    res.write(middleware.fileSystem.readFileSync(`${PATHS.public}/index.html`));
+    res.write(middleware.fileSystem.readFileSync(PATHS.indexHtml));
     res.end();
   });
 } else {
   logger.info('serving production');
   app.use(compress()); // gzip
+  app.use(favicon(PATHS.publicFavicon));
   app.use(express.static(PATHS.dist));
-  app.use('/api', proxy(url.parse(`${backendUrl}/$api`)));
+  app.use('/api', proxy(url.parse(`${config.proxyUrl}/$api`)));
   app.get(/^((?!\/api).)*$/, (req, res) => {
-    res.sendFile(`${PATHS.public}/index.html`);
+    res.sendFile(PATHS.indexHtml);
   });
 }
 
-app.listen(port, host, (err) => {
+app.listen(config.port, config.host, (err) => {
   if (err) {
     logger.log(err);
   }
-  logger.info('==> Open up http://%s:%s in your browser.', host, port);
+  logger.info('==> Open up http://%s:%s in your browser.', config.host, config.port);
 });
