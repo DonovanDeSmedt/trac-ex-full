@@ -3,13 +3,23 @@ import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
+import getClientEnvironment from './env';
 import PATHS from './paths';
 
 export default {
+  devtool: 'source-map',
   entry: [
+    require.resolve('./polyfills'),
     PATHS.src,
   ],
   module: {
+    preLoaders: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'eslint',
+        include: PATHS.src
+      }
+    ],
     loaders: [
       {
         test: /\.css$/,
@@ -28,10 +38,16 @@ export default {
   },
   postcss() {
     return [
-      autoprefixer(),
+      autoprefixer({
+        browsers: [
+          '>1%',
+          'last 4 versions',
+          'Firefox ESR',
+          'not ie < 9', // React doesn't support IE8 anyway
+        ]
+      }),
     ];
   },
-  devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(PATHS.dist, {
       root: process.cwd(),
@@ -39,15 +55,19 @@ export default {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.DefinePlugin({
-      '__DEV__': false,
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
+    new webpack.DefinePlugin(getClientEnvironment()),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false,
-        screw_ie8: true,
+        screw_ie8: true, // React doesn't support IE8
+        warnings: false
       },
+      mangle: {
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+        screw_ie8: true
+      }
     }),
     new ExtractTextPlugin('styles.css'),
     new CompressionPlugin({

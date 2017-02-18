@@ -15,25 +15,37 @@ export default {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel?cacheDirectory=true',
+        loader: 'babel',
         include: PATHS.src,
+        query: {
+          cacheDirectory: true
+        }
       },
       {
-        test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg)$/,
-        loader: 'url?limit=10000',
+        exclude: [
+          /\.html$/,
+          /\.(js|jsx)$/,
+          /\.css$/,
+          /\.json$/,
+          /\.svg$/
+        ],
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: 'static/[name].[ext]'
+        }
       },
       {
-        test: /\.((ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9]))|(ttf|eot)$/,
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
+        test: /\.svg$/,
         loader: 'file',
-      },
-      {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000&mimetype=image/png&name=[path][name].[hash].[ext]',
-      },
-      {
-        test: /\.jpg$/,
-        loader: 'file-loader?name=[path][name].[hash].[ext]',
-      },
+        query: {
+          name: 'static/[name].[ext]'
+        }
+      }
     ],
   },
   plugins: [

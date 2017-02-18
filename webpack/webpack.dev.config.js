@@ -1,9 +1,11 @@
 import webpack from 'webpack';
 import stylelint from 'stylelint';
 import reporter from 'postcss-reporter';
+import getClientEnvironment from './env';
 import PATHS from './paths';
 
 export default {
+  devtool: 'eval-source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
@@ -35,13 +37,9 @@ export default {
       reporter(),
     ];
   },
-  devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      '__DEV__': true,
-      'process.env.NODE_ENV': JSON.stringify('development'),
-    }),
+    new webpack.DefinePlugin(getClientEnvironment()),
   ],
 };
