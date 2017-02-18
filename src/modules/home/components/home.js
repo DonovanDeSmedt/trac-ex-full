@@ -3,6 +3,12 @@ import { Link } from 'react-router';
 import styles from './home.css';
 
 class Home extends Component {
+  static propTypes = {
+    getItems: PropTypes.func.isRequired,
+    toggleItem: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
+  }
+
   componentDidMount() {
     const { getItems } = this.props;
     getItems([{ id: 1, title: 'item 1' }, { id: 2, title: 'item 2' }]);
@@ -31,11 +37,5 @@ class Home extends Component {
     );
   }
 }
-
-Home.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  toggleItem: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
-};
 
 export default Home;
