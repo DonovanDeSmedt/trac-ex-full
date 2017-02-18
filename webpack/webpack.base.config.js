@@ -39,7 +39,7 @@ export default {
   plugins: [
     new LodashModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: PATHS.public + '/index.html',
       inject: 'body',
       title: 'React Redux Starter',
     }),

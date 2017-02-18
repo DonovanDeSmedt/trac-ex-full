@@ -8,6 +8,7 @@ import url from 'url';
 import morgan from 'morgan';
 import yargs from 'yargs';
 import compress from 'compression';
+import favicon from 'serve-favicon';
 import config from './webpack.config.babel';
 
 const argv = yargs.argv;
@@ -19,7 +20,7 @@ const host = 'localhost';
 const app = express();
 const PATHS = {
   dist: path.join(__dirname, 'dist'),
-  index: path.join(__dirname, 'dist', 'index.html'),
+  public: path.join(__dirname, 'public'),
 };
 
 if (!production) {
@@ -35,12 +36,13 @@ if (!production) {
   });
 
   app.use(morgan('dev'));
+  app.use(favicon(`${PATHS.public}/favicon.ico`));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.use('/api', proxy(url.parse(`${backendUrl}/$api`)));
 
   app.get(/^((?!\/api).)*$/, (req, res) => {
-    res.write(middleware.fileSystem.readFileSync(PATHS.index));
+    res.write(middleware.fileSystem.readFileSync(`${PATHS.public}/index.html`));
     res.end();
   });
 } else {
@@ -49,7 +51,7 @@ if (!production) {
   app.use(express.static(PATHS.dist));
   app.use('/api', proxy(url.parse(`${backendUrl}/$api`)));
   app.get(/^((?!\/api).)*$/, (req, res) => {
-    res.sendFile(PATHS.index);
+    res.sendFile(`${PATHS.public}/index.html`);
   });
 }
 
