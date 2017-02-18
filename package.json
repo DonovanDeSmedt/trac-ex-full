@@ -80,5 +80,33 @@
       "src/**/*-reducers.js",
       "src/**/*-selectors.js"
     ]
+  },
+  "babel": {
+    "presets": [
+      "react",
+      "es2015"
+    ],
+    "plugins": [
+      "react-hot-loader/babel",
+      "lodash",
+      "transform-object-rest-spread",
+      "transform-class-properties"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "dlw",
+      "dlw/rules/react"
+    ],
+    "rules": {},
+    "env": {
+      "jest": true
+    },
+    "globals": {
+      "__DEV__": true
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
   }
 }
