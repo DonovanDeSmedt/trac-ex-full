@@ -1,11 +1,6 @@
-import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
-
-const PATHS = {
-  app: path.join(__dirname, '..', 'app'),
-  dist: path.join(__dirname, '..', 'dist'),
-};
+import PATHS from './paths';
 
 export default {
   output: {
@@ -21,7 +16,7 @@ export default {
       {
         test: /\.jsx?$/,
         loader: 'babel?cacheDirectory=true',
-        include: PATHS.app,
+        include: PATHS.src,
       },
       {
         test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg)$/,

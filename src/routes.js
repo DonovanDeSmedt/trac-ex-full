@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import AppWrapper from './components/app-wrapper';
+import AppWrapper from './modules/app/app-wrapper';
 import HomeContainer from './modules/home/containers/home-container';
 import ContactContainer from './modules/contact/containers/contact-container';
 

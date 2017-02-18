@@ -1,18 +1,13 @@
-import path from 'path';
 import webpack from 'webpack';
 import stylelint from 'stylelint';
 import reporter from 'postcss-reporter';
-
-const PATHS = {
-  app: path.join(__dirname, '..', 'app'),
-  dist: path.join(__dirname, '..', 'dist'),
-};
+import PATHS from './paths';
 
 export default {
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
-    PATHS.app,
+    PATHS.src,
   ],
   module: {
     loaders: [
@@ -24,13 +19,13 @@ export default {
           'css?sourceMap&modules&localIdentName=[name]---[local]---[hash:base64:5]',
           'postcss',
         ],
-        include: PATHS.app,
+        include: PATHS.src,
       },
       // external css files
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        exclude: PATHS.app,
+        exclude: PATHS.src,
       },
     ],
   },

@@ -1,18 +1,13 @@
-import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
-
-const PATHS = {
-  app: path.join(__dirname, '..', 'app'),
-  dist: path.join(__dirname, '..', 'dist'),
-};
+import PATHS from './paths';
 
 export default {
   entry: [
-    PATHS.app,
+    PATHS.src,
   ],
   module: {
     loaders: [
@@ -22,12 +17,12 @@ export default {
           'style',
           'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss'
         ),
-        include: PATHS.app,
+        include: PATHS.src,
       },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css'),
-        exclude: PATHS.app,
+        exclude: PATHS.src,
       },
     ],
   },
