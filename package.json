@@ -41,7 +41,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.10.0",
     "express": "^4.14.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "beta",
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.28.0",
     "husky": "^0.13.1",
@@ -63,7 +63,7 @@
     "stylelint-config-standard": "^16.0.0",
     "svg-loader": "^0.0.2",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0",
+    "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.17.0",
     "webpack-merge": "^0.17.0",
@@ -90,7 +90,7 @@
   "babel": {
     "presets": [
       "react",
-      "es2015"
+      ["es2015", { "modules": false }]
     ],
     "plugins": [
       "react-hot-loader/babel",

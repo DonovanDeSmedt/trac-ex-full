@@ -10,15 +10,15 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
         include: PATHS.src,
-        query: {
+        loader: 'babel-loader',
+        options: {
           cacheDirectory: true
         }
       },
@@ -30,20 +30,16 @@ module.exports = {
           /\.json$/,
           /\.svg$/
         ],
-        loader: 'url',
-        query: {
+        loader: 'url-loader',
+        options: {
           limit: 10000,
           name: 'static/[name].[ext]'
         }
       },
       {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
         test: /\.svg$/,
-        loader: 'file',
-        query: {
+        loader: 'file-loader',
+        options: {
           name: 'static/[name].[ext]'
         }
       }

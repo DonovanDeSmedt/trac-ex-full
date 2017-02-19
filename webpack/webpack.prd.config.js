@@ -13,50 +13,66 @@ module.exports = {
     PATHS.src,
   ],
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'eslint',
+        enforce: 'pre',
+        loader: 'eslint-loader',
         include: PATHS.src
-      }
-    ],
-    loaders: [
+      },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss'
-        ),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]---[local]---[hash:base64:5]'
+              }
+            },
+            'postcss-loader'
+          ]
+        }),
         include: PATHS.src,
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
         exclude: PATHS.src,
       },
     ],
-  },
-  postcss() {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
-    ];
   },
   plugins: [
     new CleanWebpackPlugin(PATHS.dist, {
       root: process.cwd(),
       verbose: true,
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [
+          autoprefixer({
+            browsers: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 9', // React doesn't support IE8 anyway
+            ]
+          }),
+        ]
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
     new webpack.DefinePlugin(getClientEnvironment()),
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       compress: {
         screw_ie8: true, // React doesn't support IE8
         warnings: false
@@ -69,7 +85,11 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      disable: false,
+      allChunks: true
+    }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",

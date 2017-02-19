@@ -12,34 +12,43 @@ module.exports = {
     PATHS.src,
   ],
   module: {
-    loaders: [
+    rules: [
       // local files: css modules
       {
         test: /\.css$/,
-        loaders: [
-          'style',
-          'css?sourceMap&modules&localIdentName=[name]---[local]---[hash:base64:5]',
-          'postcss',
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              localIdentName: '[name]---[local]---[hash:base64:5]'
+            }
+          },
+          'postcss-loader',
         ],
         include: PATHS.src,
       },
       // external css files
       {
         test: /\.css$/,
-        loaders: ['style', 'css'],
+        use: ['style-loader', 'css-loader'],
         exclude: PATHS.src,
       },
     ],
   },
-  postcss() {
-    return [
-      stylelint(),
-      reporter(),
-    ];
-  },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [
+          stylelint(),
+          reporter(),
+        ]
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(getClientEnvironment()),
   ],
 };
