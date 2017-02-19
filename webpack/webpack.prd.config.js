@@ -1,12 +1,12 @@
-import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import CompressionPlugin from 'compression-webpack-plugin';
-import getClientEnvironment from './env';
-import PATHS from './paths';
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const getClientEnvironment = require('./env');
+const PATHS = require('./paths');
 
-export default {
+module.exports = {
   devtool: 'source-map',
   entry: [
     require.resolve('./polyfills'),

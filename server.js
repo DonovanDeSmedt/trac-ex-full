@@ -1,15 +1,15 @@
-import path from 'path';
-import express from 'express';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import proxy from 'proxy-middleware';
-import url from 'url';
-import morgan from 'morgan';
-import yargs from 'yargs';
-import compress from 'compression';
-import favicon from 'serve-favicon';
-import webpackConfig from './webpack.config.babel';
+const path = require('path');
+const express = require('express');
+const webpack = require('webpack');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const proxy = require('proxy-middleware');
+const url = require('url');
+const morgan = require('morgan');
+const yargs = require('yargs');
+const compress = require('compression');
+const favicon = require('serve-favicon');
+const webpackConfig = require('./webpack.config');
 
 const config = {
   host: 'localhost',

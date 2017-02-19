@@ -5,9 +5,9 @@
   "main": "server.js",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/babel-node server",
+    "start": "node server",
     "dist": "cross-env NODE_ENV=production webpack",
-    "start:dist": "./node_modules/.bin/babel-node server --production",
+    "start:dist": "npm run start -- --production",
     "lint:js": "eslint src --ext .js --ext .jsx",
     "lint:js:fix": "eslint src --ext .js --ext .jsx --fix",
     "lint:css": "./node_modules/stylelint/dist/cli.js src/**/*.css",

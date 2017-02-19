@@ -1,8 +1,9 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
-import PATHS from './paths';
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const PATHS = require('./paths');
 
-export default {
+module.exports = {
   output: {
     path: PATHS.dist,
     filename: 'bundle.js',

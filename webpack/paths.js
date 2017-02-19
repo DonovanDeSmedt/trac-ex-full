@@ -1,6 +1,6 @@
-import path from 'path';
+const path = require('path');
 
-export default {
+module.exports = {
   src: path.join(__dirname, '..', 'src'),
   dist: path.join(__dirname, '..', 'dist'),
   public: path.join(__dirname, '..', 'public'),

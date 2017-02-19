@@ -1,10 +1,10 @@
-import webpack from 'webpack';
-import stylelint from 'stylelint';
-import reporter from 'postcss-reporter';
-import getClientEnvironment from './env';
-import PATHS from './paths';
+const webpack = require('webpack');
+const stylelint = require('stylelint');
+const reporter = require('postcss-reporter');
+const getClientEnvironment = require('./env');
+const PATHS = require('./paths');
 
-export default {
+module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'react-hot-loader/patch',
