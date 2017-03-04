@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "react-hot-loader/babel",
+    "lodash",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ],
+  "presets": [
+    "react",
+    ["latest", {
+      "es2015": {
+        "modules": false
+      }
+    }]
+  ],
+  "env": {
+    "test": {
+      "presets": ["react", "latest"]
+    }
+  }
+}

@@ -87,22 +87,6 @@
       "src/**/*-selectors.js"
     ]
   },
-  "babel": {
-    "presets": [
-      "react",
-      ["latest", {
-        "es2015": {
-          "modules": false
-        }
-      }]
-    ],
-    "plugins": [
-      "react-hot-loader/babel",
-      "lodash",
-      "transform-object-rest-spread",
-      "transform-class-properties"
-    ]
-  },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": [
