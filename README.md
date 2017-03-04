@@ -15,7 +15,7 @@
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run dist](#npm-run-dist)
-  - [npm run dist:test](#npm-run-dist:test)
+  - [npm run dist:test](#npm-run-disttest)
 - [Supported Language Features and Polyfills](#supported-language-features-and-polyfills)
 - [Syntax Highlighting in the Editor](#syntax-highlighting-in-the-editor)
 - [ESLint](#eslint)
