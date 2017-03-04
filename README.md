@@ -15,6 +15,7 @@
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run dist](#npm-run-dist)
+  - [npm run dist:test](#npm-run-dist:test)
 - [Supported Language Features and Polyfills](#supported-language-features-and-polyfills)
 - [Syntax Highlighting in the Editor](#syntax-highlighting-in-the-editor)
 - [ESLint](#eslint)
@@ -37,9 +38,14 @@
   - [Code Splitting with ES6](#code-splitting-with-es6)
   - [Tree shaking](#tree-shaking)
 - [Git Hooks](#git-hooks)
+- [Environment Variables](#environment-variables)
 
 ## Folder Structure
 ```
+config/
+  dev.js
+  prod.js
+  test.js
 public/
   favicon.ico
   index.html
@@ -82,7 +88,7 @@ You need to **put any JS and CSS files inside `src`**, or Webpack won’t see th
 
 ### `npm start`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode using the `dev` config.<br>
 Open [http://localhost:3010](http://localhost:3010) to view it in the browser.
 
 The page will hot-reload (if possible) when you make changes.<br>
@@ -95,10 +101,14 @@ Launches the jest test runner to run all the tests defined in the src directory.
 
 ### `npm run dist`
 
-Builds the app for production to the `dist` folder.<br>
+Builds the app for production to the `dist` folder using the `prd` config.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
+
+### `npm run dist:test`
+
+Does exactly the same as `npm run dist` but uses the `test` config.<br>
 
 ## Supported Language Features and Polyfills
 
@@ -350,3 +360,8 @@ In cases in which webpack can say for sure that an export isn't used it omits th
 ## Git hooks
 
 The [Husky](https://github.com/typicode/husky) library is used to run `npm test` before each `git push`. If the tests fail, `git push` will abort without pushing anything. You can skip the tests and force push by passing the `--no-verify` option.
+
+## Environment Variables
+
+You can define environment variables in the `config` folder. When adding a new variable, be sure to add it to each environment.
+Each environment variable should also be added to `package.json > eslintConfig > globals`. If you fail to do this, you will not be able to create a production or test build since ESLint will fail. Each variable is injected by Webpack and therefor available anywhere in your code.

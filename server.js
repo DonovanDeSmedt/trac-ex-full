@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const yargs = require('yargs');
 const compress = require('compression');
 const favicon = require('serve-favicon');
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config')();
 
 const config = {
   host: 'localhost',

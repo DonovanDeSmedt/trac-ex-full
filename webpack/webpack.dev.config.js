@@ -4,51 +4,53 @@ const reporter = require('postcss-reporter');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
 
-module.exports = {
-  devtool: 'eval-source-map',
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
-    PATHS.src,
-  ],
-  module: {
-    rules: [
-      // local files: css modules
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: true,
-              localIdentName: '[name]---[local]---[hash:base64:5]'
-            }
-          },
-          'postcss-loader',
-        ],
-        include: PATHS.src,
-      },
-      // external css files
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-        exclude: PATHS.src,
-      },
+module.exports = function devConfig(env) {
+  return {
+    devtool: 'eval-source-map',
+    entry: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
+      PATHS.src,
     ],
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        context: __dirname,
-        postcss: [
-          stylelint(),
-          reporter(),
-        ]
-      }
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin(getClientEnvironment()),
-  ],
+    module: {
+      rules: [
+        // local files: css modules
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                modules: true,
+                localIdentName: '[name]---[local]---[hash:base64:5]',
+              },
+            },
+            'postcss-loader',
+          ],
+          include: PATHS.src,
+        },
+        // external css files
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+          exclude: PATHS.src,
+        },
+      ],
+    },
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          context: __dirname,
+          postcss: [
+            stylelint(),
+            reporter(),
+          ],
+        },
+      }),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin(getClientEnvironment(env)),
+    ],
+  };
 };

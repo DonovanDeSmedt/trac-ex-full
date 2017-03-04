@@ -1,17 +1,20 @@
-const argv = require('yargs').argv;
+const PATHS = require('./paths');
 
-function getClientEnvironment() {
-  const defaults = {
-    'process.env.NODE_ENV': process.env.NODE_ENV || 'development',
-    '__DEV__':  process.env.NODE_ENV !== 'production',
-  };
+function getConfig(env) {
+  if (env && env.production) {
+    return require(`${PATHS.config}/prod`);
+  } else if (env && env.test) {
+    return require(`${PATHS.config}/test`);
+  }
+  return require(`${PATHS.config}/dev`);
+}
 
-  return Object
-      .keys(defaults)
-      .reduce((env, key) => {
-        env[key] = JSON.stringify(defaults[key]);
-        return env;
-      }, {});
+function getClientEnvironment(env) {
+  const config = getConfig(env);
+  return Object.keys(config).reduce((acc, key) => {
+    acc[key] = JSON.stringify(config[key]);
+    return acc;
+  }, {});
 }
 
 module.exports = getClientEnvironment;

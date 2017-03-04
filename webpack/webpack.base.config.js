@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const PATHS = require('./paths');
@@ -19,8 +18,8 @@ module.exports = {
         include: PATHS.src,
         loader: 'babel-loader',
         options: {
-          cacheDirectory: true
-        }
+          cacheDirectory: true,
+        },
       },
       {
         exclude: [
@@ -28,21 +27,21 @@ module.exports = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
         ],
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'static/[name].[ext]'
-        }
+          name: 'static/[name].[ext]',
+        },
       },
       {
         test: /\.svg$/,
         loader: 'file-loader',
         options: {
-          name: 'static/[name].[ext]'
-        }
-      }
+          name: 'static/[name].[ext]',
+        },
+      },
     ],
   },
   plugins: [

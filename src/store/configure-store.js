@@ -6,8 +6,7 @@ const logger = createLogger({});
 
 export default function configureStore(rootReducer) {
   let createStoreWithMiddleware;
-
-  if (__DEV__) {
+  if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-underscore-dangle
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     createStoreWithMiddleware = composeEnhancers(

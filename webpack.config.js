@@ -4,14 +4,9 @@ const devConfig = require('./webpack/webpack.dev.config');
 const prdConfig = require('./webpack/webpack.prd.config');
 
 const TARGET = process.env.npm_lifecycle_event;
-
-let config = {}; // eslint-disable-line
-switch (TARGET) {
-  case 'dist':
-    config = merge.smart(baseConfig, prdConfig);
-    break;
-  default:
-    config = merge.smart(baseConfig, devConfig);
-}
-
-module.exports = config;
+module.exports = function webpackConfig(env) {
+  if (TARGET.includes('dist')) {
+    return merge.smart(baseConfig, prdConfig(env));
+  }
+  return merge.smart(baseConfig, devConfig(env));
+};
