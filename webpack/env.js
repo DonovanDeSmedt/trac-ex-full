@@ -1,4 +1,5 @@
 const PATHS = require('./paths');
+const sharedConfig = require(`${PATHS.config}/shared`);
 
 function getConfig(env) {
   if (env && env.production) {
@@ -10,7 +11,8 @@ function getConfig(env) {
 }
 
 function getClientEnvironment(env) {
-  const config = getConfig(env);
+  const envConfig = getConfig(env);
+  const config = Object.assign({}, sharedConfig, envConfig);
   return Object.keys(config).reduce((acc, key) => {
     acc[key] = JSON.stringify(config[key]);
     return acc;
