@@ -364,4 +364,4 @@ The [Husky](https://github.com/typicode/husky) library is used to run `npm test`
 ## Environment Variables
 
 You can define environment variables in the `config` folder. When adding a new variable, be sure to add it to each environment.
-Each environment variable should also be added to `package.json > eslintConfig > globals`. If you fail to do this, you will not be able to create a production or test build since ESLint will fail. Each variable is injected by Webpack and therefor available anywhere in your code.
+Each environment variable should also be added to `package.json > eslintConfig > globals`. If you fail to do this, you will not be able to create a production or test build since ESLint will fail. Each variable is injected by Webpack and therefore available anywhere in your code.
