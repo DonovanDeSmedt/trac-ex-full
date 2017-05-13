@@ -33,7 +33,21 @@ module.exports = function prdConfig(env) {
                   localIdentName: '[name]---[local]---[hash:base64:5]',
                 },
               },
-              'postcss-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: [
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                    }),
+                  ],
+                },
+              },
             ],
           }),
           include: PATHS.src,
@@ -52,21 +66,6 @@ module.exports = function prdConfig(env) {
       new CleanWebpackPlugin(PATHS.dist, {
         root: process.cwd(),
         verbose: true,
-      }),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          context: __dirname,
-          postcss: [
-            autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ],
-            }),
-          ],
-        },
       }),
       new webpack.LoaderOptionsPlugin({
         minimize: true,

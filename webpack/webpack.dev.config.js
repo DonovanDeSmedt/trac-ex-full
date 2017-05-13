@@ -27,7 +27,15 @@ module.exports = function devConfig(env) {
                 localIdentName: '[name]---[local]---[hash:base64:5]',
               },
             },
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  stylelint(),
+                  reporter(),
+                ],
+              },
+            },
           ],
           include: PATHS.src,
         },
@@ -40,15 +48,6 @@ module.exports = function devConfig(env) {
       ],
     },
     plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          context: __dirname,
-          postcss: [
-            stylelint(),
-            reporter(),
-          ],
-        },
-      }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin(getClientEnvironment(env)),
     ],

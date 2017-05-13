@@ -4,9 +4,9 @@ import AppWrapper from './modules/app/app-wrapper';
 import HomeContainer from './modules/home/containers/home-container';
 import ContactContainer from './modules/contact/containers/contact-container';
 
-export default (
+export default
   <Route path='/' component={AppWrapper}>
     <IndexRoute component={HomeContainer} />
     <Route path='contact' component={ContactContainer} />
   </Route>
-);
+;
