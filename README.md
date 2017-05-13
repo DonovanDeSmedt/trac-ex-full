@@ -56,7 +56,6 @@ src/
   index.js
   reducers.js
   root.js
-  router.js
 webpack/
   env.js
   paths.js
