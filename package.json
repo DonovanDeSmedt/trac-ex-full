@@ -16,7 +16,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
-    "precommit": "npm run lint"
+    "prepush": "npm run lint"
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
