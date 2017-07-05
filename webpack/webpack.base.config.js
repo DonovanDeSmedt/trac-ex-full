@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const PATHS = require('./paths');
@@ -51,5 +52,6 @@ module.exports = {
       inject: 'body',
       title: 'React Redux Starter',
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 };

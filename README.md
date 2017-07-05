@@ -39,6 +39,7 @@
   - [Tree shaking](#tree-shaking)
 - [Git Hooks](#git-hooks)
 - [Environment Variables](#environment-variables)
+- [Moment.js](#momentjs)
 
 ## Folder Structure
 ```
@@ -364,3 +365,32 @@ The [Husky](https://github.com/typicode/husky) library is used to run `npm test`
 
 You can define environment variables in the `config` folder. When adding a new variable, be sure to add it to each environment.
 Each environment variable should also be added to `package.json > eslintConfig > globals`. If you fail to do this, you will not be able to create a production or test build since ESLint will fail. Each variable is injected by Webpack and therefore available anywhere in your code.
+
+
+## Momentjs
+
+If you use a Moment.js, you might notice that only the English locale is available by default. This is because the locale files are large, and you probably only need a subset of all the locales provided by Moment.js.
+
+To add a specific Moment.js locale to your bundle, you need to import it explicitly.
+For example:
+
+```javascript
+import moment from 'moment';
+import 'moment/locale/nl-be';
+```
+
+If import multiple locales this way, you can later switch between them by calling moment.locale() with the locale name:
+
+```javascript
+import moment from 'moment';
+import 'moment/locale/nl-be';
+import 'moment/locale/fr';
+
+// ...
+
+moment.locale('fr');
+```
+
+This will only work for locales that have been explicitly imported before. If you require dynamic loading of locales see this issue [here](https://github.com/webpack/webpack/issues/3128#issuecomment-306681896)
+
+For more information, have a look at the [wiki](https://wiki.delawareconsulting.com/display/DMWIT/Optimize+moment.js)

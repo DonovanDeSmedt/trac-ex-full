@@ -1,6 +1,6 @@
 {
   "name": "react-redux-template",
-  "version": "2.2.0",
+  "version": "3.1.0",
   "description": "React redux starter kit",
   "main": "server.js",
   "private": true,
