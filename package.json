@@ -1,6 +1,6 @@
 {
   "name": "react-redux-template",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "React redux starter kit",
   "main": "server.js",
   "private": true,
@@ -63,7 +63,7 @@
     "stylelint-config-standard": "^16.0.0",
     "svg-loader": "^0.0.2",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.1",
+    "webpack": "^3.3.0",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.17.0",
     "webpack-merge": "^0.17.0",

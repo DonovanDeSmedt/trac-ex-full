@@ -71,6 +71,7 @@ module.exports = function prdConfig(env) {
         minimize: true,
       }),
       new webpack.DefinePlugin(getClientEnvironment(env)),
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         sourceMap: true,
         compress: {
