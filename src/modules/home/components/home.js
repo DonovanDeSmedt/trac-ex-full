@@ -8,7 +8,7 @@ class Home extends Component {
     getItems: PropTypes.func.isRequired,
     toggleItem: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-  }
+  };
 
   componentDidMount() {
     const { getItems } = this.props;
@@ -22,17 +22,15 @@ class Home extends Component {
         <h1 className={styles.home}>Home</h1>
         <Link to='contact'>Contact</Link>
         <ul>
-          {
-            items.map((item, idx) =>
-              <li
-                key={idx}
-                onClick={() => toggleItem(item.id)}
-                style={item.selected ? { color: 'red' } : {}}
-              >
-                {item.title}
-              </li>,
-            )
-          }
+          {items.map((item, idx) =>
+            (<li
+              key={idx}
+              onClick={() => toggleItem(item.id)}
+              style={item.selected ? { color: 'red' } : {}}
+            >
+              {item.title}
+            </li>)
+          )}
         </ul>
       </div>
     );

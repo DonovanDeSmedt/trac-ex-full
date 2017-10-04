@@ -16,7 +16,9 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
-    "prepush": "npm run lint"
+    "prepush": "npm run lint",
+    "pretty":
+      "prettier-eslint --single-quote --trailing-comma all --write 'src/**/*.js'"
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
@@ -53,6 +55,8 @@
     "object-assign": "^4.1.1",
     "postcss-loader": "^2.0.6",
     "postcss-reporter": "^5.0.0",
+    "prettier": "^1.7.4",
+    "prettier-eslint-cli": "^4.4.0",
     "promise": "^8.0.1",
     "proxy-middleware": "^0.15.0",
     "react-hot-loader": "3.0.0-beta.6",
@@ -91,10 +95,7 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": [
-      "dlw",
-      "dlw/rules/react"
-    ],
+    "extends": ["dlw", "dlw/rules/react"],
     "rules": {},
     "env": {
       "jest": true

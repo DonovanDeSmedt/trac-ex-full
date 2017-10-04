@@ -5,11 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './modules/app/app';
 
 const Root = ({ store }) =>
-  <Provider store={store}>
+  (<Provider store={store}>
     <Router>
       <App />
     </Router>
-  </Provider>
+  </Provider>)
 ;
 
 Root.propTypes = {

@@ -5,10 +5,10 @@ import Home from '../home/containers/home-container';
 import Contact from '../contact/containers/contact-container';
 
 const App = () =>
-  <div>
-    <Route exact={true} path='/' component={Home} />
-    <Route path='/contact' component={Contact} />
-  </div>
+  (<div>
+    <Route exact={true} path="/" component={Home} />
+    <Route path="/contact" component={Contact} />
+  </div>)
 ;
 
 App.propTypes = {

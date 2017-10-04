@@ -12,8 +12,8 @@ const renderApp = (RootCmp) => {
   render(
     <AppContainer>
       <RootCmp store={store} />
-    </AppContainer>
-    , document.getElementById('root'),
+    </AppContainer>,
+    document.getElementById('root'),
   );
 };
 
