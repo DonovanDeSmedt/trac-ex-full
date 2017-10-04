@@ -3,6 +3,7 @@
   "version": "3.1.0",
   "description": "React redux starter kit",
   "main": "server.js",
+  "moduleRoots": ["src/modules"],
   "private": true,
   "scripts": {
     "start": "node server",
@@ -100,12 +101,21 @@
       "src/**/*-actions.js",
       "src/**/*-reducers.js",
       "src/**/*-selectors.js"
-    ]
+    ],
+    "moduleDirectories": ["node_modules", "src/modules"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "plugins": ["prettier"],
     "extends": ["dlw", "dlw/rules/react", "prettier"],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src/modules"],
+          "extensions": [".js", ".json"]
+        }
+      }
+    },
     "rules": {},
     "env": {
       "jest": true
