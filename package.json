@@ -16,9 +16,14 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
-    "prepush": "npm run lint",
+    "precommit": "lint-staged",
     "pretty":
       "prettier-eslint --single-quote --trailing-comma all --write 'src/**/*.js'"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --trailing-comma all"
+    ]
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
@@ -48,6 +53,7 @@
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "json-loader": "^0.5.7",
+    "lint-staged": "^4.2.3",
     "lodash-webpack-plugin": "^0.11.4",
     "morgan": "^1.9.0",
     "normalize.css": "^7.0.0",
