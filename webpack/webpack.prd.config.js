@@ -9,10 +9,7 @@ const PATHS = require('./paths');
 module.exports = function prdConfig(env) {
   return {
     devtool: 'source-map',
-    entry: [
-      require.resolve('./polyfills'),
-      PATHS.src,
-    ],
+    entry: [require.resolve('./polyfills'), PATHS.src],
     module: {
       rules: [
         {
@@ -65,6 +62,7 @@ module.exports = function prdConfig(env) {
         minimize: true,
       }),
       new webpack.DefinePlugin(getClientEnvironment(env)),
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         sourceMap: true,
         compress: {
