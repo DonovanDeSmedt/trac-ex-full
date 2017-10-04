@@ -16,12 +16,6 @@ module.exports = function prdConfig(env) {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
-          enforce: 'pre',
-          loader: 'eslint-loader',
-          include: PATHS.src,
-        },
-        {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
