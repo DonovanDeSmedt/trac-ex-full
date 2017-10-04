@@ -13,7 +13,7 @@
     "lint:js:fix": "eslint src --ext .js --ext .jsx --fix",
     "lint:css": "stylelint src/**/*.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "test": "jest",
+    "test": "jest src/**/*",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
     "precommit": "lint-staged"
