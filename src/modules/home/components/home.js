@@ -20,17 +20,17 @@ class Home extends Component {
     return (
       <div>
         <h1 className={styles.home}>Home</h1>
-        <Link to='contact'>Contact</Link>
+        <Link to="contact">Contact</Link>
         <ul>
-          {items.map((item, idx) =>
-            (<li
+          {items.map((item, idx) => (
+            <li
               key={idx}
               onClick={() => toggleItem(item.id)}
               style={item.selected ? { color: 'red' } : {}}
             >
               {item.title}
-            </li>)
-          )}
+            </li>
+          ))}
         </ul>
       </div>
     );

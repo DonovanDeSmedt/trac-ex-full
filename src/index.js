@@ -8,7 +8,7 @@ import rootReducer from './reducers';
 
 const store = configureStore(rootReducer);
 
-const renderApp = (RootCmp) => {
+const renderApp = RootCmp => {
   render(
     <AppContainer>
       <RootCmp store={store} />
