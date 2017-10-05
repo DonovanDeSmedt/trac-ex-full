@@ -3,11 +3,12 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
 
+// eslint-disable-next-line no-empty-function
+const noop = () => {};
 module.exports = function prdConfig(env) {
   return {
     entry: [require.resolve('./polyfills'), PATHS.src],
@@ -88,7 +89,7 @@ module.exports = function prdConfig(env) {
         disable: false,
         allChunks: true,
       }),
-      env.analyze ? new BundleAnalyzerPlugin() : () => {},
+      env.analyze ? new BundleAnalyzerPlugin() : noop,
       new CompressionPlugin({
         asset: '[path].gz[query]',
         algorithm: 'gzip',
