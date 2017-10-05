@@ -10,7 +10,6 @@ const PATHS = require('./paths');
 
 module.exports = function prdConfig(env) {
   return {
-    devtool: 'source-map',
     entry: [require.resolve('./polyfills'), PATHS.src],
     module: {
       rules: [
