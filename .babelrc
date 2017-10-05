@@ -7,15 +7,27 @@
   ],
   "presets": [
     "react",
-    ["latest", {
-      "es2015": {
-        "modules": false
+    [
+      "env",
+      {
+        "modules": false,
+        "useBuiltIns": "entry",
       }
-    }]
+    ]
   ],
   "env": {
     "test": {
-      "presets": ["react", "latest"]
+      "presets": [
+        "react",
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
     }
   }
 }
