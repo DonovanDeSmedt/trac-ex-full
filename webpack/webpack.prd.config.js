@@ -24,6 +24,7 @@ module.exports = function prdConfig(env) {
                 options: {
                   modules: true,
                   localIdentName: '[name]---[local]---[hash:base64:5]',
+                  minimize: true,
                 },
               },
               {
@@ -49,7 +50,14 @@ module.exports = function prdConfig(env) {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  minimize: true,
+                },
+              },
+            ],
           }),
           exclude: PATHS.src,
         },
@@ -59,9 +67,6 @@ module.exports = function prdConfig(env) {
       new CleanWebpackPlugin(PATHS.dist, {
         root: process.cwd(),
         verbose: true,
-      }),
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
       }),
       new webpack.DefinePlugin(getClientEnvironment(env)),
       new webpack.optimize.ModuleConcatenationPlugin(),
