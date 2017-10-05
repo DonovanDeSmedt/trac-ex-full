@@ -71,7 +71,6 @@ module.exports = function prdConfig(env) {
       new webpack.DefinePlugin(getClientEnvironment(env)),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
         compress: {
           screw_ie8: true, // React doesn't support IE8
           warnings: false,
