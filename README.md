@@ -16,13 +16,15 @@
   - [npm test](#npm-test)
   - [npm run dist](#npm-run-dist)
   - [npm run dist:test](#npm-run-disttest)
+  - [npm run dist:analyze](#npm-run-distanalyze)
 - [Supported Language Features and Polyfills](#supported-language-features-and-polyfills)
 - [Syntax Highlighting in the Editor](#syntax-highlighting-in-the-editor)
 - [ESLint](#eslint)
+- [Prettier](#prettier)
 - [Displaying Lint Output in the Editor](#displaying-lint-output-in-the-editor)
 - [Installing a Dependency](#installing-a-dependency)
 - [Importing a Component](#importing-a-component)
-- [Adding styles](#adding-styles)
+- [Styles via styled components](#styles-via-styled-components)
 - [Post-Processing CSS](#post-processing-css)
 - [Adding Images](#adding-images)
 - [Proxying API Requests in Development](#proxying-api-requests-in-development)
@@ -33,10 +35,11 @@
   - [Testing Components](#testing-components)
   - [Coverage Reporting](#coverage-reporting)
 - [Dependencies](#dependencies)
-- [Webpack 2](#webpack-2)
+- [Webpack 3](#webpack-3)
   - [ES6 Modules](#es6-modules)
   - [Code Splitting with ES6](#code-splitting-with-es6)
   - [Tree shaking](#tree-shaking)
+  - [Dynamic imports](#dynamic-imports)
 - [Git Hooks](#git-hooks)
 - [Environment Variables](#environment-variables)
 - [Moment.js](#momentjs)
@@ -109,6 +112,17 @@ The build is minified and the filenames include the hashes.<br>
 ### `npm run dist:test`
 
 Does exactly the same as `npm run dist` but uses the `test` config.<br>
+### `npm run dist:analyze`
+
+Uses the same config as `npm run dist` but after building a new browser tab will open at `127.0.0.1:8888`.<br>
+This will help you:
+
+- Realize what's really inside your bundle
+- Find out what modules make up the most of it's size
+- Find modules that got there by mistake
+- Optimize it!
+
+![](https://cloud.githubusercontent.com/assets/302213/20628702/93f72404-b338-11e6-92d4-9a365550a701.gif);
 
 ## Supported Language Features and Polyfills
 
@@ -124,14 +138,14 @@ In addition to [ES2015](https://github.com/lukehoban/es6features) syntax feature
 
 Learn more about [different proposal stages](https://github.com/tc39/proposals).
 
-Note that **the template only includes a few [polyfills](https://en.wikipedia.org/wiki/Polyfill)**:
+Note that **the template only includes a [polyfill](https://en.wikipedia.org/wiki/Polyfill)** for [`fetch()`](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) via [`whatwg-fetch`](https://github.com/github/fetch).
 
-* [`Object.assign()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) via [`object-assign`](https://github.com/sindresorhus/object-assign).
-* [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) via [`promise`](https://github.com/then/promise).
-* [`fetch()`](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) via [`whatwg-fetch`](https://github.com/github/fetch).
-
-If you use any other ES6+ features that need **runtime support** (such as `Array.from()` or `Symbol`), make sure you are including the appropriate polyfills manually, or consider using [babel-polyfill](https://babeljs.io/docs/usage/polyfill/)
-
+To add support for other ES6+ features that need **runtime support** (such as `Array.from()` or `Object.assign()`), [babel-polyfill](https://babeljs.io/docs/usage/polyfill/) is included by default. All features that need to be polyfilled are defined by the browser support which is defined in `.babelrc`. The current list is:
+* "ie 11",
+* "Edge >= 13",
+* "Firefox >= 50",
+* "Chrome >= 55",
+* "Safari >= 10"
 
 ## Syntax Highlighting in the Editor
 
@@ -142,18 +156,36 @@ To configure syntax highlighting in your favorite text editor, head to the [rele
 All rules are defined in [eslint-config-dlw](https://github.com/Stvenoo/eslint-config-dlw).
 Submit an issue or pull request if you want to request changes. All rules can easily be overridden in the rules section located in `package.json > eslintConfig`, based on your preferences.
 
+## Prettier
+
+[Prettier](https://github.com/prettier/prettier) is an opinionated code formatter. It removes all original styling and ensures that all outputted code conforms to a consistent style. Since ESLint also specifies a series of code formating rules, [prettier-eslint](https://github.com/prettier/prettier-eslint) is used to disable all relevant ESLint rules. You can run pretty on your entire project using the `npm run pretty` task. <br>
+If you want to automatically format your code on save in your editor, you can install the [visual code extension](https://github.com/prettier/prettier-vscode) and use the following options in your user settings: 
+> "editor.formatOnSave": true, <br>
+"prettier.eslintIntegration": true, <br>
+"prettier.singleQuote": true, <br>
+"prettier.trailingComma": "all", <br>
+
+You can also install the [prettier-atom](https://github.com/prettier/prettier-atom) package and enable the options above in the settings menu.
+
 ## Displaying Lint Output in the Editor
 
 You should see the linter output right in your terminal as well as the browser console. However, if you prefer the lint results to appear right in your editor, there are some extra steps you can do.
 
->**Atom users**
+>**Atom**
 
 You need to install the following packages in atom:
 
 * [linter](https://atom.io/packages/linter)
 * [linter-eslint](https://github.com/AtomLinter/linter-eslint)
 
-If you want to lint your errors automatically, you can check the box `Fix errors on save` in the settings of the linter-eslint package.
+If you want to lint your errors automatically, you can check the box `Fix errors on save` in the settings of the linter-eslint package. You should disable this option if you are already using prettier to format on save.
+
+>**Visual Code**
+
+You need to install the following packages in visual code:
+
+* [vscode-eslint](https://github.com/Microsoft/vscode-eslint)
+
 
 ## Installing a Dependency
 
@@ -169,35 +201,36 @@ npm install --save <library-name>
 This project setup supports ES6 modules thanks to Babel.
 While you can still use require() and module.exports, I encourage you to use [import and export](http://exploringjs.com/es6/ch_modules.html) instead.
 
-## Adding styles
+## Styles via styled components
 
-All local CSS files are parsed using [CSS-modules](https://github.com/css-modules/css-modules).
-CSS Modules is not an official spec or an implementation in the browser but rather a process in the build step that changes class names and selectors to be scoped to the component.
-
-```css
-.button {
-  padding: 20px;
-}
-```
+[Styled-components](https://www.styled-components.com/docs) utilises tagged template literals to style your components.<br>
+It removes the mapping between components and styles. This means that when you're defining your styles, you're actually creating a normal React component, that has your styles attached to it. Styled-components pass on all their props.
 
 ```javascript
-import React from 'react';
-import styles from './Button.css';
+// Create a Title component that'll render an <h1> tag with some styles based on props
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: ${props => props.primary ? 'white' : 'palevioletred'};
+`;
 
-const Button = (props) => {
-  return <div className={styles.button} />;
-}
+// Create a Wrapper component that'll render a <section> tag with some styles
+const Wrapper = styled.section`
+  padding: 4em;
+  background: papayawhip;
+`;
+
+// Use Title and Wrapper like any other React component – except they're styled!
+render(
+  <Wrapper>
+    <Title primary>
+      Hello World, this is my first styled component!
+    </Title>
+  </Wrapper>
+);
 ```
 
-The generated CSS might look like:
-
-```css
-.app---button---1nFrV {
-  padding: 20px;
-}
-```
-
-Adding styles from **dependencies** are not parsed using CSS modules as this would break the package!
+Adding styles from **dependencies** are bundled into a separate bundle.
 
 ```javascript
 import 'font-awesome/css/font-awesome.css';
@@ -213,7 +246,7 @@ In production, all CSS files will be concatenated into a single minified .css fi
 
 ## Post-Processing CSS
 
-All your CSS files are automatically vendor prefixed through [Autoprefixer](https://github.com/postcss/autoprefixer) so you don’t need to worry about it.
+All your CSS files are automatically vendor prefixed when working with styled-components so you don’t need to worry about it.
 
 For example, this:
 
@@ -239,8 +272,6 @@ becomes this:
           align-items: center;
 }
 ```
-
-Next to prefixing your CSS files for production, a set of standard rules are enforced using [Stylelint](https://stylelint.io/) with the [standard config](https://github.com/stylelint/stylelint-config-standard).
 
 ## Adding Images
 
@@ -337,8 +368,9 @@ For now only coverage from actions, reducers and selectors is collected, as defi
 - [Redux Thunk](https://github.com/gaearon/redux-thunk): Thunk middleware for Redux
 - [Redux Actions](https://github.com/acdlite/redux-actions): Flux Standard Action utilities for Redux
 - [Reselect](https://github.com/reactjs/reselect): Selector library for Redux
+- [Styled Components](https://www.styled-components.com/): Use the best bits of ES6 and CSS to style your apps without stress
 
-## Webpack 2
+## Webpack 3
 
 ### ES6 Modules
 
@@ -346,10 +378,8 @@ Webpack 2 brings native support ES6 Modules. This means webpack now understands 
 
 ### Code Splitting with ES6
 
-The ES6 Loader spec defines `System.import` as method to load ES6 Modules dynamically on runtime.
-Webpack threads `System.import` as splitpoint and puts the requested module in a separate chunk. [code-splitting](https://webpack.js.org/guides/code-splitting/)
-
-`System.import` takes the module name as argument and returns a Promise.
+Code splitting is enabled by default for vendors libraries (node modules) and application code. Separate bundles can also be created for each route using [react-loadable](https://github.com/thejameskyle/react-loadable). See example in `app.js`. <br>
+Creating a new build will result in a vendor bundle, a home chunck and a contact chunck. Chunks are loaded on demand based on the current route. This results in an overal smaller bundle and faster parsing of your JavaScript code. See [dynamic imports](#dynamic-imports) for more info.
 
 ### Tree shaking
 
@@ -357,9 +387,20 @@ The static nature of ES6 Modules allows some new kind of optimizations. For exam
 
 In cases in which webpack can say for sure that an export isn't used it omits the statement which exposes the export to other modules. Later the minimizer may flag the declaration as unused and omits it.
 
+### Dynamic imports
+
+Dynamic import expressions are a new feature and part of ECMAScript that allows users to asynchronously request a module at any arbitrary point in your program.
+
+```javascript
+  import('path/to/module') -> Promise
+```
+
+Calls to [import()](https://webpack.js.org/api/module-methods/#import-) are treated as split points, meaning the requested module and it's children are split out into a separate chunk.
+
 ## Git hooks
 
-The [Husky](https://github.com/typicode/husky) library is used to run `npm test` before each `git push`. If the tests fail, `git push` will abort without pushing anything. You can skip the tests and force push by passing the `--no-verify` option.
+The [Husky](https://github.com/typicode/husky) library and [lint-staged](https://github.com/okonet/lint-staged) library are used to run a series of quality tools (eslint and tests) before each commit. If eslint finds any errors or the relevant tests fail, the commit will abort.
+You can skip this behaviour (not recommend) by passing the `--no-verify` option. Only the staged files (.js) files are checked and not the entire project.
 
 ## Environment Variables
 
