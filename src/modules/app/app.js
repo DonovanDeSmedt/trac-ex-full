@@ -1,18 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import Home from '../home/containers/home-container';
-import Contact from '../contact/containers/contact-container';
+import Loadable from 'utils/loadable';
 
-const App = () =>
+const AsyncHome = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "home" */ 'home/containers/home-container'),
+});
+const AsyncContact = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "contact" */ 'contact/containers/contact-container'),
+});
+
+const App = () => (
   <div>
-    <Route exact={true} path='/' component={Home} />
-    <Route path='/contact' component={Contact} />
+    <Route exact={true} path="/" component={AsyncHome} />
+    <Route path="/contact" component={AsyncContact} />
   </div>
-;
-
-App.propTypes = {
-  children: PropTypes.element,
-};
+);
 
 export default App;

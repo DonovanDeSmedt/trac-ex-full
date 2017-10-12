@@ -7,18 +7,14 @@ const logger = createLogger({});
 export default function configureStore(rootReducer) {
   let createStoreWithMiddleware;
   if (process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line no-underscore-dangle
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    const composeEnhancers =
+      // eslint-disable-next-line no-underscore-dangle
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     createStoreWithMiddleware = composeEnhancers(
-      applyMiddleware(
-        thunk,
-        logger,
-      ),
+      applyMiddleware(thunk, logger),
     )(createStore);
   } else {
-    createStoreWithMiddleware = compose(
-      applyMiddleware(thunk),
-   )(createStore);
+    createStoreWithMiddleware = compose(applyMiddleware(thunk))(createStore);
   }
 
   return createStoreWithMiddleware(rootReducer);

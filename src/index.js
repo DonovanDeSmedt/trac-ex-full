@@ -1,4 +1,5 @@
 import 'normalize.css';
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -8,12 +9,12 @@ import rootReducer from './reducers';
 
 const store = configureStore(rootReducer);
 
-const renderApp = (RootCmp) => {
+const renderApp = RootCmp => {
   render(
     <AppContainer>
       <RootCmp store={store} />
-    </AppContainer>
-    , document.getElementById('root'),
+    </AppContainer>,
+    document.getElementById('root'),
   );
 };
 

@@ -2,25 +2,23 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
 
+// eslint-disable-next-line no-empty-function
+const noop = () => {};
 module.exports = function prdConfig(env) {
   return {
-    devtool: 'source-map',
-    entry: [
-      require.resolve('./polyfills'),
-      PATHS.src,
-    ],
+    entry: {
+      app: [require.resolve('./polyfills'), PATHS.src],
+    },
+    output: {
+      filename: '[name]-bundle.js',
+      chunkFilename: '[name]-chunk.js',
+    },
     module: {
       rules: [
-        {
-          test: /\.(js|jsx)$/,
-          enforce: 'pre',
-          loader: 'eslint-loader',
-          include: PATHS.src,
-        },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
@@ -31,6 +29,7 @@ module.exports = function prdConfig(env) {
                 options: {
                   modules: true,
                   localIdentName: '[name]---[local]---[hash:base64:5]',
+                  minimize: true,
                 },
               },
               {
@@ -56,7 +55,14 @@ module.exports = function prdConfig(env) {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  minimize: true,
+                },
+              },
+            ],
           }),
           exclude: PATHS.src,
         },
@@ -67,13 +73,13 @@ module.exports = function prdConfig(env) {
         root: process.cwd(),
         verbose: true,
       }),
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-      }),
       new webpack.DefinePlugin(getClientEnvironment(env)),
       new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: ({ context }) => context.indexOf('node_modules') !== -1,
+      }),
       new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
         compress: {
           screw_ie8: true, // React doesn't support IE8
           warnings: false,
@@ -87,17 +93,11 @@ module.exports = function prdConfig(env) {
         },
       }),
       new ExtractTextPlugin({
-        filename: 'styles.css',
+        filename: 'styles-[name].css',
         disable: false,
         allChunks: true,
       }),
-      new CompressionPlugin({
-        asset: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.js$|\.css$|\.html$/,
-        threshold: 10240,
-        minRatio: 0.8,
-      }),
+      env.analyze ? new BundleAnalyzerPlugin() : noop,
     ],
   };
 };

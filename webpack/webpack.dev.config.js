@@ -30,10 +30,7 @@ module.exports = function devConfig(env) {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: [
-                  stylelint(),
-                  reporter(),
-                ],
+                plugins: [stylelint(), reporter()],
               },
             },
           ],
