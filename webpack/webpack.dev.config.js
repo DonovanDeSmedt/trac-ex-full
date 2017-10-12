@@ -7,7 +7,7 @@ module.exports = function devConfig(env) {
     devtool: 'eval-source-map',
     entry: [
       'react-hot-loader/patch',
-      'webpack-hot-middleware/client',
+      'webpack-hot-middleware/client?reload=true',
       PATHS.src,
     ],
     module: {

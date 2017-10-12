@@ -13,7 +13,7 @@ const webpackConfig = require('./webpack.config')();
 
 const config = {
   host: 'localhost',
-  port: 3010,
+  port: yargs.argv.production ? 3005 : 3010,
   proxyUrl: '',
 };
 const PATHS = {
@@ -44,6 +44,7 @@ if (!yargs.argv.production) {
   app.use('/api', proxy(url.parse(`${config.proxyUrl}/$api`)));
 
   app.get(/^((?!\/api).)*$/, (req, res) => {
+    // eslint-disable-next-line no-sync
     res.write(middleware.fileSystem.readFileSync(PATHS.indexHtml));
     res.end();
   });
@@ -58,9 +59,9 @@ if (!yargs.argv.production) {
   });
 }
 
-app.listen(config.port, config.host, (err) => {
+app.listen(config.port, config.host, err => {
   if (err) {
     logger.log(err);
   }
-  logger.info('==> Open up http://%s:%s in your browser.', config.host, config.port);
+  logger.info('Open http://%s:%s in your browser.', config.host, config.port);
 });
