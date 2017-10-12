@@ -11,7 +11,13 @@ const PATHS = require('./paths');
 const noop = () => {};
 module.exports = function prdConfig(env) {
   return {
-    entry: [require.resolve('./polyfills'), PATHS.src],
+    entry: {
+      app: [require.resolve('./polyfills'), PATHS.src],
+    },
+    output: {
+      filename: '[name]-bundle.js',
+      chunkFilename: '[name]-chunk.js',
+    },
     module: {
       rules: [
         {
@@ -70,6 +76,10 @@ module.exports = function prdConfig(env) {
       }),
       new webpack.DefinePlugin(getClientEnvironment(env)),
       new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: ({ context }) => context.indexOf('node_modules') !== -1,
+      }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true, // React doesn't support IE8
@@ -84,7 +94,7 @@ module.exports = function prdConfig(env) {
         },
       }),
       new ExtractTextPlugin({
-        filename: 'styles.css',
+        filename: 'styles-[name].css',
         disable: false,
         allChunks: true,
       }),
