@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -14,43 +13,11 @@ module.exports = function prdConfig(env) {
       app: [require.resolve('./polyfills'), PATHS.src],
     },
     output: {
-      filename: '[name]-bundle.js',
-      chunkFilename: '[name]-chunk.js',
+      filename: '[name].[chunkhash]-bundle.js',
+      chunkFilename: '[name].[chunkhash]-chunk.js',
     },
     module: {
       rules: [
-        {
-          test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  modules: true,
-                  localIdentName: '[name]---[local]---[hash:base64:5]',
-                  minimize: true,
-                },
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: [
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9', // React doesn't support IE8 anyway
-                      ],
-                    }),
-                  ],
-                },
-              },
-            ],
-          }),
-          include: PATHS.src,
-        },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
@@ -93,7 +60,7 @@ module.exports = function prdConfig(env) {
         },
       }),
       new ExtractTextPlugin({
-        filename: 'styles-[name].css',
+        filename: '[name].[chunkhash].css',
         disable: false,
         allChunks: true,
       }),

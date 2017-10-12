@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styles from './home.css';
+import styled from 'styled-components';
+
+const HomeLink = styled.h1`
+  color: blue;
+`;
+
+const Item = styled.li`
+  color: ${p => (p.selected ? 'red' : 'black')};
+`;
 
 class Home extends Component {
   static propTypes = {
@@ -19,17 +27,17 @@ class Home extends Component {
     const { items, toggleItem } = this.props;
     return (
       <div>
-        <h1 className={styles.home}>Home</h1>
+        <HomeLink>Home</HomeLink>
         <Link to="contact">Contact</Link>
         <ul>
           {items.map((item, idx) => (
-            <li
+            <Item
               key={idx}
               onClick={() => toggleItem(item.id)}
-              style={item.selected ? { color: 'red' } : {}}
+              selected={item.selected}
             >
               {item.title}
-            </li>
+            </Item>
           ))}
         </ul>
       </div>
