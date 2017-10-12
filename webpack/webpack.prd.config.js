@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
@@ -99,13 +98,6 @@ module.exports = function prdConfig(env) {
         allChunks: true,
       }),
       env.analyze ? new BundleAnalyzerPlugin() : noop,
-      new CompressionPlugin({
-        asset: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.js$|\.css$|\.html$/,
-        threshold: 10240,
-        minRatio: 0.8,
-      }),
     ],
   };
 };
