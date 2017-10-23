@@ -4,11 +4,11 @@ import Loadable from 'utils/loadable';
 
 const AsyncHome = Loadable({
   loader: () =>
-    import(/* webpackChunkName: "home" */ 'home/containers/home-container'),
+    import(/* webpackChunkName: "home" */ '../home/containers/home-container'),
 });
 const AsyncContact = Loadable({
   loader: () =>
-    import(/* webpackChunkName: "contact" */ 'contact/containers/contact-container'),
+    import(/* webpackChunkName: "contact" */ '../contact/containers/contact-container'),
 });
 
 const App = () => (
