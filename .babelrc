@@ -24,7 +24,13 @@
             "modules": false,
             "useBuiltIns": "entry",
             "targets": {
-              "browsers": ["Chrome >= 55"]
+              "browsers": [
+                "ie 11",
+                "Edge >= 13",
+                "Firefox >= 50",
+                "Chrome >= 55",
+                "Safari >= 10"
+              ]
             }
           }
         ]

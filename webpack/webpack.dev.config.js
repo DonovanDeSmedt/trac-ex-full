@@ -6,7 +6,10 @@ module.exports = function devConfig(env) {
   return {
     devtool: 'eval-source-map',
     entry: [
+      'babel-polyfill',
       'react-hot-loader/patch',
+      'react',
+      'react-dom',
       'webpack-hot-middleware/client?reload=true',
       PATHS.src,
     ],
