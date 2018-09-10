@@ -10,7 +10,14 @@ const noop = () => {};
 module.exports = function prdConfig(env) {
   return {
     entry: {
-      app: [require.resolve('./polyfills'), PATHS.src],
+      app: [
+        require.resolve('./polyfills'),
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        'react',
+        'react-dom',
+        PATHS.src,
+      ],
     },
     output: {
       filename: '[name].[chunkhash]-bundle.js',
