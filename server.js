@@ -14,7 +14,7 @@ const webpackConfig = require('./webpack.config')();
 const config = {
   host: 'localhost',
   port: yargs.argv.production ? 3005 : 3010,
-  proxyUrl: '',
+  proxyUrl: 'https://icanhazdadjoke.com',
 };
 const PATHS = {
   dist: path.join(__dirname, 'dist'),
@@ -41,7 +41,7 @@ if (!yargs.argv.production) {
   app.use(favicon(PATHS.publicFavicon));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.use('/api', proxy(url.parse(`${config.proxyUrl}/$api`)));
+  app.use('/proxy', proxy(url.parse(`${config.proxyUrl}`)));
 
   app.get(/^((?!\/api).)*$/, (req, res) => {
     // eslint-disable-next-line no-sync

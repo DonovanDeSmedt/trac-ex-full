@@ -1,0 +1,5 @@
+export const GET_JOKE_REQUEST = 'GET_JOKE_REQUEST';
+export const GET_JOKE_SUCCESS = 'GET_JOKE_SUCCESS';
+export const GET_JOKE_FAIL = 'GET_JOKE_FAIL';
+
+export const ADD_MESSAGE = 'ADD_MESSAGE';
