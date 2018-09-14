@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Loadable from 'utils/loadable';
 import {
   ThemeProvider,
   darkTheme,
   elegantTheme,
   purpleTheme,
 } from '@livechat/ui-kit';
+import Loadable from '../utils/loadable';
 
 const AsyncContact = Loadable({
   loader: () =>

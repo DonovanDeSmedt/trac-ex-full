@@ -2,14 +2,13 @@
   "name": "react-redux-template",
   "version": "4.0.0",
   "description": "React redux starter kit",
-  "main": "server.js",
-  "moduleRoots": [
-    "src/modules"
-  ],
+  "main": "src/index.js",
+  "moduleRoots": ["src/modules"],
   "private": true,
   "scripts": {
     "start": "cross-env BABEL_ENV=development NODE_ENV=development node server",
-    "dist": "cross-env BABEL_ENV=production NODE_ENV=production webpack --env.production",
+    "dist":
+      "cross-env BABEL_ENV=production NODE_ENV=production webpack --env.production",
     "dist:test": "npm run dist -- --env.test",
     "dist:analyze": "npm run dist -- --env.analyze",
     "start:dist": "npm run start -- --production",
@@ -19,14 +18,12 @@
     "test": "cross-env BABEL_ENV=test NODE_ENV=test jest src/*",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
-    "pretty": "prettier-eslint --single-quote --trailing-comma all --write '{src}/**/*.js'",
+    "pretty":
+      "prettier-eslint --single-quote --trailing-comma all --write '{src}/**/*.js'",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint",
-      "jest --findRelatedTests"
-    ]
+    "*.js": ["eslint", "jest --findRelatedTests"]
   },
   "author": "Steven Van Eenoo",
   "devDependencies": {
@@ -67,7 +64,7 @@
     "prettier": "^1.7.4",
     "prettier-eslint-cli": "^4.4.0",
     "proxy-middleware": "^0.15.0",
-    "react-hot-loader": "^3.0.0",
+
     "redux-logger": "^3.0.6",
     "serve-favicon": "^2.4.5",
     "style-loader": "^0.19.0",
@@ -90,7 +87,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-spinners": "^0.4.5",
+    "react-hot-loader": "^3.0.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
@@ -104,31 +101,17 @@
       "src/**/*-reducers.js",
       "src/**/*-selectors.js"
     ],
-    "moduleDirectories": [
-      "node_modules",
-      "src/modules"
-    ]
+    "moduleDirectories": ["node_modules", "src/modules"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "plugins": [
-      "prettier"
-    ],
-    "extends": [
-      "dlw",
-      "dlw/rules/react",
-      "prettier"
-    ],
+    "plugins": ["prettier"],
+    "extends": ["dlw", "dlw/rules/react", "prettier"],
     "settings": {
       "import/resolver": {
         "node": {
-          "paths": [
-            "src/modules"
-          ],
-          "extensions": [
-            ".js",
-            ".json"
-          ]
+          "paths": ["src/modules"],
+          "extensions": [".js", ".json"]
         }
       }
     },

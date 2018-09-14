@@ -20,7 +20,7 @@ const JokeHeader = ({ currentAgent, parseUrl }) => (
           <CloseIcon />
         </IconButton>,
       ]}
-      title="Welcome to MWI joke generator"
+      title="Welcome to the joke generator"
     />
     {currentAgent && (
       <AgentBar>

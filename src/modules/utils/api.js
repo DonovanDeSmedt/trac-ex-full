@@ -9,7 +9,7 @@ function checkStatus(response) {
 }
 
 function getUrl(endpoint) {
-  const baseUrl = '/proxy';
+  const baseUrl = 'https://icanhazdadjoke.com';
   return `${baseUrl}${endpoint}`;
 }
 
@@ -17,13 +17,13 @@ export default function callAPI({ endPoint, options = {} }) {
   const defaultOptions = {
     method: 'GET',
     headers: {
-      Accept: 'application/json',
-      'content-type': 'application/json',
+      Accept: 'text/plain',
+      //   'content-type': 'application/json',
     },
   };
   const mergedOptions = { ...defaultOptions, ...options };
   return fetch(getUrl(endPoint), mergedOptions)
     .then(res => checkStatus(res))
-    .then(res => res.json())
+    .then(res => res.text())
     .catch(err => Promise.reject(err));
 }

@@ -54,7 +54,7 @@ class JokeList extends Component {
       avatarUrl:
         'https://static.staging.livechatinc.com/1520/P10064EDGF/7970c9d036275c2ee9282d15535ef57b/botengine-avatar.png',
       id: 'bot',
-      name: 'MWI Bot',
+      name: 'Joke Bot',
     };
 
     return (
