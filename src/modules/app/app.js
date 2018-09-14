@@ -8,10 +8,6 @@ import {
 } from '@livechat/ui-kit';
 import Loadable from '../utils/loadable';
 
-const AsyncContact = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "contact" */ '../contact/containers/contact-container'),
-});
 const AsyncJoke = Loadable({
   loader: () =>
     import(/* webpackChunkName: "joke" */ '../joke/containers/joke-container'),
@@ -78,7 +74,6 @@ const App = () => (
     <ThemeProvider theme={themes.defaultTheme}>
       <div>
         <Route exact={true} path="/" component={AsyncJoke} />
-        <Route path="/contact" component={AsyncContact} />
       </div>
     </ThemeProvider>
   </div>
