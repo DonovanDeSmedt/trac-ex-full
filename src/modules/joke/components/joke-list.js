@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const JokeList = ({ jokes }) =>
-  jokes.map(item => <div key={item.id}>{item.text}</div>);
+const JokeList = ({ jokes }) => <div>{/* Display the jokes */}</div>;
 
-JokeList.propTypes = {
-  jokes: PropTypes.array.isRequired,
-};
+JokeList.propTypes = {};
 export default JokeList;
