@@ -1,7 +1,7 @@
 {
   "name": "react-redux-template",
   "version": "4.0.0",
-  "description": "React redux starter kit",
+  "description": "Trac - full",
   "main": "src/index.js",
   "moduleRoots": ["src/modules"],
   "private": true,
@@ -25,7 +25,7 @@
   "lint-staged": {
     "*.js": ["eslint", "jest --findRelatedTests"]
   },
-  "author": "Steven Van Eenoo",
+  "author": "delaware",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
