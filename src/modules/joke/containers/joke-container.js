@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import addMessage from './joke-actions';
-import JokeList from '../components/joke-list';
+import Joke from '../components/joke';
 
 const mapStateToProps = state => ({
   jokes: state.joke.data,
@@ -10,4 +10,4 @@ const mapDispatchToProps = {
   addMessage,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JokeList);
+export default connect(mapStateToProps, mapDispatchToProps)(Joke);
