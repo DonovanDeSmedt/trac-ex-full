@@ -1,48 +1,84 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Message,
-  MessageText,
-  MessageButtons,
-  MessageButton,
-  MessageTitle,
-  MessageMedia,
-} from '@livechat/ui-kit';
+import JokeHeader from './joke-header';
+import JokeList from './joke-list';
+import JokeInput from './joke-input';
 
-const Joke = ({ message, parseUrl, getAvatarForUser, users, ownId }) => (
-  <Message
-    avatarUrl={parseUrl(getAvatarForUser(message.authorId, users))}
-    isOwn={message.authorId === ownId || message.own === true}
-    key={message.id}
-  >
-    {message.title && <MessageTitle title={message.title} />}
-    {message.text && <MessageText>{message.text}</MessageText>}
-    {message.imageUrl && (
-      <MessageMedia>
-        <img src={message.imageUrl} />
-      </MessageMedia>
-    )}
-    {message.buttons &&
-      message.buttons.length !== 0 && (
-        <MessageButtons>
-          {message.buttons.map((button, buttonIndex) => (
-            <MessageButton
-              key={buttonIndex}
-              label={button.title}
-              onClick={() => {
-                this.sendMessage(button.postback);
-              }}
-            />
-          ))}
-        </MessageButtons>
-      )}
-  </Message>
-);
+class Joke extends Component {
+  state = {
+    ownId: 'S1536239757.f81d2f734b',
+    users: {
+      'S1536239757.f81d2f734b': {
+        id: 'S1536239757.f81d2f734b',
+        name: 'Client',
+      },
+      bot: {
+        id: 'bot',
+        name: 'Bot',
+        avatarUrl:
+          'https://static.staging.livechatinc.com/1520/P10064EDGF/7970c9d036275c2ee9282d15535ef57b/botengine-avatar.png',
+      },
+    },
+  };
+
+  onMessageSend = text => {
+    this.props.addMessage({
+      authorId: this.state.ownId,
+      id: this.state.ownId,
+      parsedDate: '13 Sep 14:54',
+      text,
+      timestamp: new Date().getTime(),
+    });
+  };
+
+  getAvatarForUser = (userId, users) => {
+    const foundUser = users[userId];
+    if (foundUser && foundUser.avatarUrl) {
+      return foundUser.avatarUrl;
+    }
+    return null;
+  };
+
+  parseUrl = url => {
+    const res =
+      url &&
+      `https://${url.replace(/^(http(s)?:\/\/)/, '').replace(/^\/\//, '')}`;
+    return res;
+  };
+
+  render() {
+    const { jokes } = this.props;
+    const { ownId, users } = this.state;
+    const currentAgent = {
+      avatarUrl:
+        'https://static.staging.livechatinc.com/1520/P10064EDGF/7970c9d036275c2ee9282d15535ef57b/botengine-avatar.png',
+      id: 'bot',
+      name: 'Joke Bot',
+    };
+
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        <JokeHeader currentAgent={currentAgent} parseUrl={this.parseUrl} />
+        <JokeList
+          jokes={jokes}
+          parseUrl={this.parseUrl}
+          getAvatarForUser={this.getAvatarForUser}
+          users={users}
+          ownId={ownId}
+        />
+        <JokeInput handleMessageSend={this.onMessageSend} />
+      </div>
+    );
+  }
+}
 Joke.propTypes = {
-  message: PropTypes.object.isRequired,
-  parseUrl: PropTypes.func.isRequired,
-  getAvatarForUser: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
-  ownId: PropTypes.string.isRequired,
+  addMessage: PropTypes.func.isRequired,
+  jokes: PropTypes.array.isRequired,
 };
 export default Joke;
