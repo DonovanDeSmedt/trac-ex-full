@@ -3,24 +3,17 @@ import { ADD_MESSAGE } from './constants';
 import { getJokeSuccess, getJokeFail } from './joke-actions';
 import callApi from '../../utils/api';
 
-function* handleGetJokeOperation({ payload }) {
+function* handleGetJokeOperation() {
   try {
-    const results = yield call(callApi, {
+    // execute GET request using callApi method with param below
+    // hint generators *
+    const param = {
       endPoint: `/search?term=${payload.text}`,
-    });
-    // const randomIndex = Math.floor(Math.random() * results.length);
-    if (results.length) {
-      const newJoke = {
-        authorId: 'bot',
-        id: 'bot-message',
-        parsedDate: '13 Sep 14:54',
-        text: results,
-        timestamp: new Date().getTime(),
-      };
-      yield put(getJokeSuccess(newJoke));
-    }
+    };
+    // put the result of the GET request in the store
   } catch (err) {
-    yield put(getJokeFail(err.message));
+    console.log(err);
+    // put the error message in the store
   }
 }
 export default [takeLatest(ADD_MESSAGE, handleGetJokeOperation)];
