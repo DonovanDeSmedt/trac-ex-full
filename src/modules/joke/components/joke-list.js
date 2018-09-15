@@ -22,7 +22,15 @@ class JokeList extends Component {
     },
   };
 
-  onMessageSend = text => {
+  getAvatarForUser = (userId, users) => {
+    const foundUser = users[userId];
+    if (foundUser && foundUser.avatarUrl) {
+      return foundUser.avatarUrl;
+    }
+    return null;
+  };
+
+  handleMessageSend = text => {
     this.props.addMessage({
       authorId: this.state.ownId,
       id: this.state.ownId,
@@ -30,14 +38,6 @@ class JokeList extends Component {
       text,
       timestamp: new Date().getTime(),
     });
-  };
-
-  getAvatarForUser = (userId, users) => {
-    const foundUser = users[userId];
-    if (foundUser && foundUser.avatarUrl) {
-      return foundUser.avatarUrl;
-    }
-    return null;
   };
 
   parseUrl = url => {
@@ -88,7 +88,7 @@ class JokeList extends Component {
             ))}
           </MessageList>
         </div>
-        <JokeInput handleMessageSend={this.onMessageSend} />
+        <JokeInput handleMessageSend={this.handleMessageSend} />
       </div>
     );
   }

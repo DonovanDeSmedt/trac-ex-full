@@ -1,16 +1,12 @@
 import { connect } from 'react-redux';
-import { getJokeRequest, addMessage } from './joke-actions';
+import addMessage from './joke-actions';
 import JokeList from '../components/joke-list';
-import filterJokeSelector from './joke-selector';
 
 const mapStateToProps = state => ({
-  jokes: filterJokeSelector(state),
-  isLoading: state.joke.isLoading,
-  error: state.joke.error,
+  jokes: state.joke.data,
 });
 
 const mapDispatchToProps = {
-  getJokeRequest,
   addMessage,
 };
 
