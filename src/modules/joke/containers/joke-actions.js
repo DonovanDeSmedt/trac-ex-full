@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import * as actionTypes from './constants';
+import ADD_MESSAGE from './constants';
 
-const addMessage = createAction(actionTypes.ADD_MESSAGE);
-export default addMessage;
+// create action usering action creator function
+// TYPE is defined in constants file
