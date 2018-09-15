@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
 class Joke extends Component {
-  state = {};
+  state = {
+    joke: '',
+  };
   render() {
     return (
       <div>
         <div>
           <h2>Fill in a joke</h2>
-          {/* Do something with the input */}
-          <input />
+          <input onChange={e => this.setState({ joke: e.target.value })} />
           <hr />
           <h3>Joke </h3>
-          {/* Here comes the joke */}
-          <div />
+          <div>{this.state.joke}</div>
         </div>
       </div>
     );
