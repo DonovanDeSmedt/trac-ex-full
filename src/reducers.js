@@ -1,8 +1,5 @@
 import { combineReducers } from 'redux';
-import jokeReducer from './modules/joke/containers/joke-reducers';
 
-const rootReducer = combineReducers({
-  joke: jokeReducer,
-});
+const rootReducer = combineReducers({});
 
 export default rootReducer;
