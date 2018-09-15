@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getJokeRequest, addMessage } from './joke-actions';
-import JokeList from '../components/joke-list';
+import Joke from '../components/joke';
 import filterJokeSelector from './joke-selector';
 
 const mapStateToProps = state => ({
@@ -14,4 +14,4 @@ const mapDispatchToProps = {
   addMessage,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JokeList);
+export default connect(mapStateToProps, mapDispatchToProps)(Joke);
